@@ -9,3 +9,9 @@ https://codein.withgoogle.com/dashboard/tasks/6397011318800384/
 https://codein.withgoogle.com/dashboard/tasks/4848816134553600/
 https://codein.withgoogle.com/dashboard/tasks/5458736689184768/
 
+## Guidelines
+
+1. Fork this repository
+2. Clone your Fork
+3. Create a branch
+4. Send pull requests
