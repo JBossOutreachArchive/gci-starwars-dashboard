@@ -1,27 +1,22 @@
+.App {
+  text-align: center;
+}
+
 .App-logo {
-  height: 100px;
-  filter: invert(15%) sepia(80%) saturate(7419%) hue-rotate(280deg) brightness(99%) contrast(122%);
+  height: 40vmin;
 }
 
 .App-header {
-  background-color: white;
-  height: 120px;
+  background-color: #282c34;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex: 1;
+  font-size: calc(10px + 2vmin);
   color: white;
-  flex-direction: row;
 }
 
-.dashHead{
-  color: blueviolet;
-  font-size: xx-large;
-}
-
-.head{
-  text-align: center;
-  color: black;
-  font-size: xx-large;
+.App-link {
+  color: #09d3ac;
 }
