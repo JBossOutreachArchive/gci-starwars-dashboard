@@ -6,83 +6,83 @@ import ApolloClient from 'apollo-boost';
 import { css } from '@patternfly/react-styles';
 import styles from '@patternfly/react-styles/css/components/Table/table';
 
-const Species = () => {
-  const [species, setSpecies] = useState([]);
+const Planets = () => {
+  const [planets, setPlanets] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [speciesPerPage, setSpeciesPerPage] = useState(5);
+  const [planetsPerPage, setPlanetsPerPage] = useState(10);
   const client = new ApolloClient({
     uri: 'https://swapi.graph.cool/',
   });
-  const getAllSpecies = () => {
+  const getAllPlanets = () => {
     const all = gql`
     query{
-      allSpecies{
+      allPlanets{
         name
-        classification
-        designation
-        averageHeight
-        skinColor
-        hairColor
-        eyeColor
-        averageLifespan
-        language
+        rotationPeriod
+        orbitalPeriod
+        diameter
+        climate
+        gravity
+        terrain
+        population
+        surfaceWater
       }
-    }       
+    }    
     `;
     return all;
   }
   useEffect(() => {
-    const fetchSpecies = async () => {
-      await client.query({query: getAllSpecies()})
+    const fetchPlanets = async () => {
+      setLoading(true);
+      await client.query({query: getAllPlanets()})
       .then(result => {
-        const { data: { allSpecies } } = result;
-        setSpecies(allSpecies);
+        const { data: { allPlanets } } = result;
+        setPlanets(allPlanets);
+        const pageNumber = localStorage.getItem('currentPagePlanets');
+        if(pageNumber!=null){
+          setCurrentPage(localStorage.getItem('currentPagePlanets'));
+        } else {
+          localStorage.setItem('currentPagePlanets', 1);
+        }
       });
       setLoading(false);
-      const pageNumber = localStorage.getItem('currentPageSpecies');
-      if(pageNumber!=null){
-        setCurrentPage(localStorage.getItem('currentPageSpecies'));
-      } else {
-        localStorage.setItem('currentPageSpecies', 1);
-      }
     };
 
-    fetchSpecies();
+    fetchPlanets();
   }, []);
-  const indexOfLastFilm = currentPage * speciesPerPage;
-  const indexOfFirstFilm = indexOfLastFilm - speciesPerPage;
-  const currentSpecies = species.slice(indexOfFirstFilm, indexOfLastFilm);
+  const indexOfLastFilm = currentPage * planetsPerPage;
+  const indexOfFirstFilm = indexOfLastFilm - planetsPerPage;
+  const currentPlanets = planets.slice(indexOfFirstFilm, indexOfLastFilm);
   const columns = [
   'Name',
-  'Classsification',
-  'Designation',
-  'Average height',
-  'Skin Colors',
-  'Hair Colors',
-  'Eye Colors',
-  'Average Lifespan',
-  'Language'
+  'Rotation Period',
+  'Orbital Period',
+  'Diameter',
+  'Climate',
+  'Gravity',
+  'Terrain',
+  'Population',
+  'Surface Water'
   ];
-  const rows = currentSpecies.map(specie => (
+  const rows = currentPlanets.map(planet => (
     {cells: [
-      specie.name,
-      specie.classification,
-      specie.designation,
-      specie.averageHeight,
-      JSON.stringify(specie.skinColor),
-      JSON.stringify(specie.hairColor),
-      JSON.stringify(specie.eyeColor),
-      specie.averageLifespan,
-      specie.language,
+      planet.name,
+      planet.rotationPeriod,
+      planet.orbitalPeriod,
+      planet.diameter,
+      JSON.stringify(planet.climate),
+      planet.gravity,
+      JSON.stringify(planet.terrain),
+      planet.population,
+      planet.surfaceWater
   ]}
   ))
 
   const paginate = pageNumber => {
     setCurrentPage(pageNumber);
-    localStorage.setItem('currentPageSpecies', pageNumber);
+    localStorage.setItem('currentPagePlanets', pageNumber);
   };  
-
   const customRowWrapper = ({
     trRef,
     className,
@@ -123,11 +123,11 @@ const Species = () => {
         <TableBody />
       </Table>
       <br/>
-     <Pagination active={currentPage} perPage={speciesPerPage} total={species.length}  paginate={paginate} />
+     <Pagination active={currentPage} perPage={planetsPerPage} total={planets.length} paginate={paginate} />
      <br/>
     </div>
     
   );
 };
 
-export default Species;
+export default Planets;
