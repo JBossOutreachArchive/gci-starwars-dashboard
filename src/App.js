@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react'
 import './App.css';
+import { Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router } from 'react-router-dom';
+import Home from './components/Home.js';
+import NavBar from './components/navbar';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+const styles = theme=> ({ 
+  root: {
+    backgroundColor: '#F0F0F0',
+  }
+})
+
+export class App extends Component {
+  render() {
+    let { classes } = this.props;
+
+    return (
+
+        <Router>
+        <div className={classes.root}>
+          <NavBar />
+          <Switch>  
+
+            <Route exact path="/" component={Home} />
+
+          </Switch>
+          </div>
+        </Router>
+        
+      
+    );
+  }
 }
 
-export default App;
+App.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(App);
