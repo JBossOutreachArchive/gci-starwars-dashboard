@@ -18,7 +18,7 @@ export default function Home() {
 
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('username');
-    
+
     const client = new ApolloClient({
         uri: 'https://api.github.com/graphql',
         request: (operation) => {
@@ -87,7 +87,7 @@ export default function Home() {
         <div>
             <ApolloProvider client={client}>
             <CssBaseline />
-            <Container maxWidth="xl">
+            <Container maxWidth="xl" className="MainContainer">
             <Navbar />
             
             {(() => {

@@ -2,7 +2,7 @@
     margin-top: 20px;
 }
 .avatar{
-    width: 280px;
+    width: '100%';
     height: 280px;
 }
 .GridItem{
