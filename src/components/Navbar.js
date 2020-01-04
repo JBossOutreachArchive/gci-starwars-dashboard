@@ -23,7 +23,7 @@ export default function Navbar() {
           <IconButton edge="start" className="menuButton" color="inherit" aria-label="menu">
             <img src={logo} className="logo" />
           </IconButton>
-          <Typography variant="h3" className="title">
+          <Typography variant="h4" className="title">
             GITHUB DASHBOARD
           </Typography>
           <Button className="logout">Logout</Button>

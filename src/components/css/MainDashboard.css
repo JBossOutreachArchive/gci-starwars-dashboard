@@ -1,0 +1,11 @@
+.container{
+    margin-top: 20px;
+}
+.avatar{
+    width: 280px;
+    height: 280px;
+}
+.GridItem{
+    padding: 10px;
+    border: 1px solid rgb(197, 197, 197) !important;
+}
