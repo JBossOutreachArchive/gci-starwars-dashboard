@@ -1,0 +1,5 @@
+.paperContainer{
+    height: 600px;
+    width: '100%';
+    overflow: scroll;
+}

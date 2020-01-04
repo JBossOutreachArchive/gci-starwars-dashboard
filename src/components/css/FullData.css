@@ -1,0 +1,16 @@
+.FullData{
+    padding-top: 60px;
+}
+.Full-title{
+    color: #00CBF0;
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+
+}
+.paperContainer{
+}
+.FullItem{
+    width: 90% !important;
+}

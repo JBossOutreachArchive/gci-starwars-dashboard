@@ -1,11 +1,31 @@
 .container{
     margin-top: 20px;
+    border-radius: 20px !important;
 }
 .avatar{
-    width: '100%';
-    height: 280px;
+    padding: 2px;
+    width:100%;
+    height: 230px;
 }
 .GridItem{
+    border-right: 2px solid rgb(197, 197, 197) !important;
+}
+.textItem{
+    color: grey;
     padding: 10px;
-    border: 1px solid rgb(197, 197, 197) !important;
+    padding-left: 20px;
+}
+.name{
+    padding: 0px;
+    margin: 0px;
+    color: #00CBF0;
+    font-size: 40px;
+}
+.username{
+    padding: 0px;
+    margin: 0px;
+}
+h1{
+    padding: 0px;
+    margin: 0px;
 }
