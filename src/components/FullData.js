@@ -24,7 +24,7 @@ export default function FullData(props) {
             <Grid container>
 
                 <Grid item sm={6} className="FullItem">
-                    <Box boxShadow={3}><h1 class="Full-title">Pull Requests</h1></Box>
+                    <Box boxShadow={3}><h1 className="Full-title">Pull Requests</h1></Box>
                     <Paper className="paperContainer">
                     <Table stickyHeader aria-label="sticky table" className="table">
 
@@ -40,7 +40,7 @@ export default function FullData(props) {
                         <TableBody>
                             {props.pullRequests.map(pr => {
                                 return(
-                                <TableRow key={pr.baseRepository.name}>
+                                <TableRow key={pr.baseRepository.number}>
                                     <TableCell component="th" scope="row">{pr.baseRepository.name}</TableCell>
                                     <TableCell align="right">{pr.headRefName}</TableCell>
                                     <TableCell align="right">{pr.number}</TableCell>
@@ -56,7 +56,7 @@ export default function FullData(props) {
                 </Grid>
 
                 <Grid item sm={6} className="FullItem">
-                    <Box boxShadow={3}><h1 class="Full-title">Contributions</h1></Box>
+                    <Box boxShadow={3}><h1 className="Full-title">Contributions</h1></Box>
                     <Paper className="paperContainer">
                     <Table stickyHeader aria-label="sticky table" className="table">
 

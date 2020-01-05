@@ -40,6 +40,7 @@ export default function Home() {
             query: gql`
             query ($number_of_repos: Int = 100) {
             viewer {
+                id
                 name
                 email
                 location
