@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 
 // Material UI
 import Paper from '@material-ui/core/Paper';
@@ -11,13 +11,37 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Modal from '@material-ui/core/Modal';
+import TextField from '@material-ui/core/TextField';
+import { Button } from '@material-ui/core';
 import { FixedSizeList } from 'react-window';
+
+// Apollo
+import gql from 'graphql-tag';
+import ApolloClient from 'apollo-boost';
 
 // CSS
 import './css/Repositories.css';
+import { printIntrospectionSchema } from 'graphql';
+
 
 export default function Repositories(props) {
+
+    const token = localStorage.getItem('token');
+    const username = localStorage.getItem('username');
+
+    const client = new ApolloClient({
+        uri: 'https://api.github.com/graphql',
+        request: (operation) => {
+        operation.setContext({
+            headers: {
+            authorization: token ? `bearer ${token}` : ''
+            }
+        })
+        }
+    })
 
     // Reverse the Repo array 
     props.data.reverse();

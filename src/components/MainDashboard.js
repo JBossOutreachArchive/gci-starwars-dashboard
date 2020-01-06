@@ -9,7 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Modal from '@material-ui/core/Modal';
 import TextField from '@material-ui/core/TextField';
-
+import Paper from '@material-ui/core/Paper';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 
 // CSS
 import './css/MainDashboard.css';
@@ -73,6 +75,24 @@ export default function MainDashboard(props) {
             }).then(result => window.alert("You Followed: " + result.data.followUser.user.name))
     }
 
+    async function handleUnfollow(event,id){
+       event.preventDefault();
+       let Userid = id;
+       Userid = '"' + Userid + '"';
+
+       await client.mutate({
+           mutation: gql`
+           mutation{
+               unfollowUser(input:{userId:${Userid}}){
+                   user{
+                       name
+                   }
+               }
+           }
+           `
+       })
+    }
+
     const handleUsrChange = (e) =>{
         setUsrFollow(e.target.value);
     }
@@ -97,7 +117,7 @@ export default function MainDashboard(props) {
                         <img className="avatar" src={props.data.data.viewer.avatarUrl} />
                     </Grid> 
                     <Grid item sm={4} className="GridItem textItem">
-                        <h1 className="name">{props.data.data.viewer.name.toUpperCase()}</h1>
+                        <h1 className="name">{props.data.data.viewer.name ? props.data.data.viewer.name.toUpperCase() : "No Name"}</h1>
                         <h3 style={{color:'grey'}} className="username">@{localStorage.getItem('username')}</h3>
                         <h2>Email: {props.data.data.viewer.email}</h2>
                         <h2>Location: {props.data.data.viewer.location}</h2>
@@ -119,14 +139,65 @@ export default function MainDashboard(props) {
                 </Grid>
             </Card>
 
-            <Modal open={open} onClose={handleClose}><div>hello</div></Modal>
+            <Modal open={open} onClose={handleClose}>
+                <div className="modal-div-following container">
+                    <Paper>
+                        <List className="unfollow-list" style={{maxHeight: 500, overflow: 'auto'}}>
+                        {(() => { 
+                            if(props.data.data.viewer.followers.nodes.length == 0){
+                                return <h4 style={{textAlign:'center',color:'grey',padding:'40px'}}>No Followers Found</h4>
+                            }
+                            else{
+                                return(
+                                props.data.data.viewer.followers.nodes.map(follower => {
+
+                                return(  
+                                <ListItem className="unfollow-listItem">
+                                    <div className="unfollow-listItem">
+                                        <span>{follower.name}</span>
+                                    </div>
+                                </ListItem>
+                                )
+                                })
+                                )
+                            }
+                        })()}
+                        </List>
+                    </Paper>
+                </div>
+            </Modal>
+
             <Modal open={openFollowing} onClose={handleClose2}>
                 <div className="modal-div-following container">
-                    <Card className="modal-card-following">
+                    <Card className="modal-card-following" >
                         <form>
                             <TextField className="input-following" onChange={handleUsrChange} value={usernameFollow} id="outlined-basic" label="Username" variant="outlined"/>
                             <button type="submit" className="follow-submit" onClick={handleUsrClick}>Follow</button>
                         </form>
+                        <List className="unfollow-list" style={{maxHeight: 500, overflow: 'auto'}}>
+                        {(() => {
+                            if(props.data.data.viewer.following.nodes.length == 0){
+                                return <h4 style={{textAlign:'center',color:'grey'}}>No following found</h4>
+                            }
+                            else{
+                                return(
+                                    props.data.data.viewer.following.nodes.map(following => {
+                                        return(
+                                        <ListItem className="unfollow-listItem">
+                                            <div className="unfollow-div">
+        
+                                            <span className="unfollow-name">{following.name}</span>
+        
+                                            <button type="button" className="unfollow-btn" 
+                                            onClick={(e) => handleUnfollow(e,following.id)}>UnFollow</button>
+                                            </div>
+                                        </ListItem>
+                                        )
+                                    })
+                                )
+                            }
+                        })()}
+                        </List>
                     </Card>
                 </div>
             </Modal>

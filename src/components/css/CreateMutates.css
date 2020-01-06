@@ -1,0 +1,72 @@
+.main-repo-create{
+    background-color: #00CBF0;
+}
+.create-repo-btn{
+    width: 100% !important;
+    font-size: 24px !important;
+    margin-left: 10px !important;
+    text-align: center;
+    background-color: white !important;
+    color: #00CBF0 !important;
+    border: 2px solid #00CBF0 !important;
+}
+.create-repo-btn:hover{
+    background-color: #00CBF0 !important;
+    color: white !important;
+    cursor: pointer;
+}
+.home-paper{
+    font-size: 24px !important;
+    margin-top: 50px;
+    border-radius: 20px !important;
+    padding-left: 20% !important;
+    padding-right: 20% !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #00CBF0 !important;
+}
+.div-mutate{
+    align-content: center;
+    text-align: center;
+    justify-content: center;
+    border-radius: 20px;
+    background-color: white;
+}
+.mutate-btn{
+    padding: 10px !important;
+    border-radius: 20px !important;
+    font-size: 24px !important;
+    margin: 9px !important;
+    background-color: white !important;
+    color: #00CBF0 !important;
+    border: 2px solid #00CBF0 !important;
+}
+.mutate-btn:hover{
+    background-color: #00CBF0 !important;
+    color: white !important;
+    cursor: pointer !important;
+}
+.paper-form{
+    box-shadow: 2px 4px 8px !important;
+    border: 2px solid #00CBF0 !important;
+    padding: 40px;
+}
+.name-input{
+    width: 100%;
+}
+.input-form{
+    font-size: 24px !important;
+    margin: 10px;
+}
+.description{
+    padding: 10px;
+    border: 1px solid rgb(219, 219, 219) !important;
+    width: 100%;
+}
+.select-vis{
+    width: 100%;
+}
+.placeholder-select{
+    margin-left: 10px;
+    margin-top:30px;
+}

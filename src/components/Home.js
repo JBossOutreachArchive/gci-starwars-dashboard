@@ -15,6 +15,7 @@ import Container from '@material-ui/core/Container';
 import MainDashboard from './MainDashboard';
 import Repositories from './Repositories';
 import FullData from './FullData';
+import CreateMutates from './CreateMutates';
 
 export default function Home() {
 
@@ -46,11 +47,13 @@ export default function Home() {
                 location
                 followers(first: $number_of_repos){
                 nodes{
+                    id
                     name
                 }
                 }
                 following(first: $number_of_repos){
                 nodes{
+                    id
                     name
                 }
                 }
@@ -113,6 +116,7 @@ export default function Home() {
                 return (
                     <div className="components">
                     <MainDashboard data={repos}/>
+                    <CreateMutates id={repos.data.viewer.id} repositories={repos.data.viewer.repositories.nodes}/>
                     <Repositories data={repos.data.viewer.repositories.nodes}/>
                     <FullData className="FullData" pullRequests={repos.data.viewer.pullRequests.nodes} 
                     Contributions={repos.data.viewer.repositoriesContributedTo.nodes}/>

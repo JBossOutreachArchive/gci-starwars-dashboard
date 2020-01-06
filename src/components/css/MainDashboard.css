@@ -45,7 +45,7 @@ h1{
     background-color: white;
     position: absolute;
     left: 50%;
-    top: 30%;
+    top: 40%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
@@ -62,4 +62,31 @@ h1{
     cursor: pointer;
     background-color: #00CBF0 !important;
     color: white !important;
+}
+
+.unfollow-list{
+    box-shadow: 0px !important;
+}
+.unfollow-div{
+    width: 100%;
+    box-shadow: 1px 1px 2px;
+    border-radius: 25px;
+}
+
+.unfollow-name{
+    padding: 10px;
+    font-weight: bold;
+    color: grey !important;
+}
+.unfollow-btn{
+    float: right;
+    background-color: #00CBF0;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+.unfollow-btn:hover{
+    cursor: pointer;
 }
