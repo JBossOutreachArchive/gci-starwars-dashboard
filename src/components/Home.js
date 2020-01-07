@@ -16,6 +16,7 @@ import MainDashboard from './MainDashboard';
 import Repositories from './Repositories';
 import FullData from './FullData';
 import CreateMutates from './CreateMutates';
+import Projects from './Projects';
 
 export default function Home() {
 
@@ -93,7 +94,16 @@ export default function Home() {
                     merged
                 }
                 }
-
+                projects(first: $number_of_repos){
+                nodes{
+                    id
+                    name
+                    creator{
+                        login
+                    }
+                    state
+                }
+                }
             }
             }
 
@@ -118,6 +128,7 @@ export default function Home() {
                     <MainDashboard data={repos}/>
                     <CreateMutates id={repos.data.viewer.id} repositories={repos.data.viewer.repositories.nodes}/>
                     <Repositories data={repos.data.viewer.repositories.nodes}/>
+                    <Projects data={repos.data.viewer.projects.nodes} />
                     <FullData className="FullData" pullRequests={repos.data.viewer.pullRequests.nodes} 
                     Contributions={repos.data.viewer.repositoriesContributedTo.nodes}/>
                     </div>

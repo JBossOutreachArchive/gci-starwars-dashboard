@@ -3,3 +3,110 @@
     width: '100%';
     overflow: scroll;
 }
+.home-dialog{
+    background-color: #00CBF0 !important;
+}
+.modal-div-following-2{
+    width: 50%;
+    padding: 40px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background-color: white;
+    transform: translate(-50%, -50%);
+}
+.appbar{
+    text-align: center !important;
+    background-color: #00CBF0 !important;
+}
+.toolbar{
+    text-align: center !important;
+}
+.closeIcon{
+    background-color: white !important;
+    color: #00CBF0 !important;
+}
+.repo-heading{
+    margin: 10px !important;
+    text-align: center !important;
+    color: white !important;
+}
+.repo-data{
+    padding-top: 10px;
+}
+.forkCount{
+    margin-right: 10px;
+    color: grey;
+    float: right;
+}
+.forkCountHd{
+    padding: 10px;
+    color: #00CBF0;
+}
+.repo-data-card{
+    margin: 9px !important;
+}
+.modal-div-following-3-child{
+    margin-top: 50px !important;
+}
+.modal-issue-title{
+    color: #00CBF0;
+    margin: 2px;
+    border: 2px solid #E5E5E5;
+    text-align: center;
+    padding: 10px;
+}
+.issues-div{
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 20px;
+    box-shadow: 1px 3px 4px;
+}
+.issue-title{
+    color: #00CBF0;
+    padding: 5px;
+    background-color: white;
+    text-align: center;
+}
+.issue-state-open{
+    pointer-events: none;
+    margin: 5px !important;
+    color: white !important;
+    background-color: green !important;
+}
+.issue-state-closed{
+    pointer-events: none;
+    margin: 5px !important;
+    color: white !important;
+    background-color: red !important;
+}
+.issue-input-name{
+    margin-bottom: 10px;
+    background-color: white;
+    width: 100%;
+}
+.issue-input-body{
+    border: 1px solid #E5E5E5;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 100px !important;
+    width: 100%;
+}
+.form-issue{
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+}
+.form-div{
+    background-color: white;
+}
+.issue-submit{
+    width: 100%;
+    color: #00CBF0 !important;
+    border: 2px solid #00CBF0 !important;
+    background-color: white !important;
+}
+.issue-submit:hover{
+    background-color: #00CBF0 !important;
+    color: white !important;
+    cursor: pointer;
+}

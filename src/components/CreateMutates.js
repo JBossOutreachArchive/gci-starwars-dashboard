@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import ApolloClient from 'apollo-boost';
 import gql from 'graphql-tag';
 
@@ -23,6 +23,10 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 
 import './css/CreateMutates.css';
@@ -46,18 +50,20 @@ export default function CreateMutates(props) {
 
     // State for Creating Project
     const [projectName, setProjectName] = useState("");
-    const [projectRepos, setProjectRepos] = useState();
-    let ownerId = props.id;
+    const ownerId = props.id;
 
     const RepoOptions = [];
     if(props.repositories){
         props.repositories.map(repo => {
             RepoOptions.push({
-                'name': repo.name,
-                'id': repo.id
+                name: repo.name,
+                id: repo.id,
+                checked: false,
             });
         })
+        
     }
+    const [projectRepos, setProjectRepos] = useState(RepoOptions);
     // *****************************
 
     const client = new ApolloClient({
@@ -100,7 +106,7 @@ export default function CreateMutates(props) {
         e.preventDefault();
         let name2 = '"' + name + '"';
         let description2 = '"' + description + '"';
-
+        
         await client.mutate({
             mutation: gql`
             mutation{
@@ -118,7 +124,41 @@ export default function CreateMutates(props) {
     const handleProjectName = (e) => {
         setProjectName(e.target.value);
     }
-    const handleProjectRepo = (e) => {
+    const handleProjectRepo = id => event => {
+        let tempRepos = projectRepos;
+
+        const index = tempRepos.findIndex(x => x.id == id);
+        tempRepos[index].checked = event.target.checked;
+
+        setProjectRepos(tempRepos);
+    }
+    const handleProjectSubmit = async (e) => {
+        e.preventDefault();
+        let tempName = '"' + projectName + '"';
+        let tempId = '"' + ownerId + '"';
+        let tempRepos = [];
+        projectRepos.map(repo => {
+            if(repo.checked == true){
+                let Tempid = '"' + repo.id + '"';
+                tempRepos.push(Tempid);
+            }
+        });
+
+        console.log(tempName);
+        console.log(tempId);
+        console.log(tempRepos);
+
+        await client.mutate({
+            mutation: gql`
+            mutation{
+                createProject(input:{name:${tempName},ownerId:${tempId},repositoryIds:["MDEwOlJlcG9zaXRvcnkxNDcyNzQyMjE=","MDEwOlJlcG9zaXRvcnkxNDYxNTgxNTM="]}){
+                    project{
+                        name
+                    }
+                }
+            }
+            `
+        }).then(result => window.alert("Sucessfully Created Project: " + result.data.createProject.project.name))
 
     }
 
@@ -169,8 +209,24 @@ export default function CreateMutates(props) {
                         return(
                             <div className="modal-div-following main-repo-create">
                             <Paper className="paper-form">
-                            <form>
-                                <h1>{props.id}</h1>
+                            <form onSubmit={(e) => handleProjectSubmit(e)}>
+                                <TextField className="name-input input-form" value={projectName} onChange={handleProjectName} id="outlined-basic" variant="outlined" placeholder="Project Name"></TextField>
+                                <FormGroup className="input-form checked-group">
+                                <label className="input-form">Select Repositories</label>
+                                <List style={{maxHeight: 300, overflow: 'auto'}}>
+                                {projectRepos.map(repo => {
+                                    return(
+                                        <ListItem>
+                                        <FormControlLabel
+                                    control={<Checkbox checked={repo.checked} onChange={handleProjectRepo(repo.id)} value={repo.id} />}
+                                    label={repo.name}
+                                    />
+                                    </ListItem>
+                                    )
+                                })}
+                                </List>
+                                </FormGroup>
+                                <Button type="submit" className="create-repo-btn2">CREATE PROJECT</Button>
                             </form>
                             </Paper>
                             </div>

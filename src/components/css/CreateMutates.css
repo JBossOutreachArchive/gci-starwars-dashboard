@@ -15,6 +15,21 @@
     color: white !important;
     cursor: pointer;
 }
+
+.create-repo-btn2{
+    width: 100% !important;
+    font-size: 24px !important;
+    text-align: center;
+    background-color: white !important;
+    color: #00CBF0 !important;
+    border: 2px solid #00CBF0 !important;
+}
+.create-repo-btn2:hover{
+    background-color: #00CBF0 !important;
+    color: white !important;
+    cursor: pointer;
+}
+
 .home-paper{
     font-size: 24px !important;
     margin-top: 50px;
@@ -69,4 +84,11 @@
 .placeholder-select{
     margin-left: 10px;
     margin-top:30px;
+}
+.checked-group{
+    margin: 0px !important;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important; 
+    width: 100% !important;
+    border: 1px solid rgb(219, 219, 219) !important;
 }
