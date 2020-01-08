@@ -15,10 +15,12 @@ Github dashboard to view/create/update/delete repositories,projects,issues. You 
 ,you can create one here [link](https://github.com/settings/tokens)
 
 ## Displays and Mutations
-* Displays: You can View your Repositories,Projects,Issues,Pull requests,Contributions,People you follow, People who follow you, your account details
+### Displays 
+* You can View your Repositories,Projects,Issues,Pull requests,Contributions,People you follow, People who follow you, your account details
 
 ### Mutations
 * Create Mutation: You can Create Repositories,Projects,Issues,Follow A User
 * Update Mutation: You can Update Project State, Issue State and Name, Unfollow a user,
 * Delete Mutation: You can Delete Project,Issue,Issue Comment(if made by you)
 
+### Video Demo - [Youtube](https://youtu.be/aU-buVOIixY)
