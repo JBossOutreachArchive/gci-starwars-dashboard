@@ -44,7 +44,8 @@ export default function Login() {
     }
 
     if(isLogged){
-        return <Redirect to="/home" />
+        return window.location = "/home"
+        
     }
     
     const tokenDesc = "Make Sure Your Token has Read/Write Access";
