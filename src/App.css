@@ -1,22 +1,26 @@
-.App {
-  text-align: center;
-}
-
 .App-logo {
-  height: 40vmin;
+  height: 100px;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: white;
+  height: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  flex: 1;
   color: white;
+  flex-direction: row;
 }
 
-.App-link {
-  color: #09d3ac;
+.dashHead{
+  color: lightseagreen;
+  font-size: xx-large;
+}
+
+.head{
+  text-align: center;
+  color: lightseagreen;
+  font-size: xx-large;
 }
