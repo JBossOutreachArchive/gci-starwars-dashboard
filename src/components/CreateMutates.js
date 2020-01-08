@@ -27,6 +27,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import swal from 'sweetalert';
 
 
 import './css/CreateMutates.css';
@@ -117,7 +118,7 @@ export default function CreateMutates(props) {
                 }
             }
             `
-        }).then(result => window.alert("Created Repo: " + result.data.createRepository.repository.name))
+        }).then(result => swal({title:"Created Repo: " + result.data.createRepository.repository.name,icon:"success"}))
     }
     // **************************************
 
@@ -151,14 +152,14 @@ export default function CreateMutates(props) {
         await client.mutate({
             mutation: gql`
             mutation{
-                createProject(input:{name:${tempName},ownerId:${tempId},repositoryIds:${tempRepos}}){
+                createProject(input:{name:${tempName},ownerId:${tempId},repositoryIds: [${tempRepos}] }){
                     project{
                         name
                     }
                 }
             }
             `
-        }).then(result => window.alert("Sucessfully Created Project: " + result.data.createProject.project.name))
+        }).then(result => swal({title:"Sucessfully Created Project: " + result.data.createProject.project.name,icon:"success"}))
 
     }
 
