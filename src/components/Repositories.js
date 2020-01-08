@@ -2,32 +2,23 @@ import React, { useState,useEffect } from 'react'
 
 // Material UI
 import Paper from '@material-ui/core/Paper';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Modal from '@material-ui/core/Modal';
 import TextField from '@material-ui/core/TextField';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import { Button } from '@material-ui/core';
-import { FixedSizeList } from 'react-window';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import Dialog from '@material-ui/core/Dialog';
-import Slide from '@material-ui/core/Slide';
-import Divider from '@material-ui/core/Divider';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import swal from 'sweetalert';
 
 // Apollo
 import gql from 'graphql-tag';
@@ -47,6 +38,9 @@ export default function Repositories(props) {
 
     const [name, setName] = useState("");
     const [body, setBody] = useState("");
+    const [currentIssueId, setCurrentIssueId] = useState();
+    const [changedName,setChangedName] = useState("");
+    const [isNameChange, setNameChange] = useState(false);
 
     const client = new ApolloClient({
         uri: 'https://api.github.com/graphql',
@@ -100,6 +94,7 @@ export default function Repositories(props) {
     }
 
     const handleIssueSubmit = async (e,id) =>{
+        e.preventDefault();
         let tempId = '"' + id + '"';
         let tempName = '"' + name + '"';
         let tempBody = '"' + body + '"';
@@ -114,14 +109,92 @@ export default function Repositories(props) {
                 }
             }
             `
-        }).then(result => window.alert("Created Issue: " + result.data.createIssue.issue.title))
-
+        }).then(result => swal({title:"Created Issue: " + result.data.createIssue.issue.title,text:"Reload Page",icon:"success"}))
+        
     }
     const handleName = (e) =>{
         setName(e.target.value)
     }
     const handleBody = (e) =>{
         setBody(e.target.value);
+    }
+
+    const handleSetNameTrue = (e,id) => {
+        setCurrentIssueId(id);
+        setNameChange(true);
+    }
+    const handleSetNameChange = (e) => {
+        setChangedName(e.target.value);
+    }
+
+    const handleReOpenIssue = async (e,id) =>{
+        let tempId = '"' + id + '"';
+        await client.mutate({
+            mutation: gql`
+            mutation{
+                reopenIssue(input:{issueId:${tempId}}){
+                    clientMutationId
+                }
+            }
+            `
+        }).then(result => swal({title:"Sucessfuly ReOpened Issue",text:"Reload Page",icon:"success"}))
+    }
+
+    const handleCloseIssue = async (e,id) =>{
+        let tempId = '"' + id + '"';
+        await client.mutate({
+            mutation: gql`
+            mutation{
+                closeIssue(input:{issueId:${tempId}}){
+                    clientMutationId
+                }
+            }
+            `
+        }).then(result => swal({title:"Sucessfuly Closed Issue",text:"Reload Page",icon:"success"}))
+    }
+    const handleDeleteIssue = async (e,id) =>{
+        let tempId = '"' + id + '"';
+        await client.mutate({
+            mutation: gql`
+            mutation{
+                deleteIssue(input:{issueId:${tempId}}){
+                    clientMutationId
+                }
+            }
+            `
+        }).then(result => swal({title:"Sucessfuly Deleted Issue",text:"Reload Page",icon:"success"}));
+    }
+
+    const handleIssueNameChange = async (e,id) =>{
+        e.preventDefault();
+        let tempId = '"' + id + '"';
+        let title = '"' + changedName + '"';
+
+        await client.mutate({
+            mutation: gql`
+            mutation{
+                updateIssue(input:{id:${tempId},title:${title}}){
+                    issue{
+                        title
+                    }
+                }
+            }
+            `
+        }).then(result => swal({title:"Successfuly Changed the Name to " + title, text:"Reload Page",icon:"success"}))
+        setNameChange(false);
+    }
+    const handleCommentDelete = async (id) =>{
+        let tempId = '"' + id + '"';
+
+        await client.mutate({
+            mutation: gql`
+            mutation{
+                deleteIssueComment(input:{id:${tempId}}){
+                    clientMutationId
+                }
+            }
+            `
+        }).then(result => swal({title:"Sucessfuly Deleted Comment",text:"Reload Page",icon:"success"}))
     }
 
     // Reverse the Repo array 
@@ -155,7 +228,7 @@ export default function Repositories(props) {
                             <TableCell align="right">{repo.stargazers.totalCount}</TableCell>
                             <TableCell align="right">{repo.pullRequests.totalCount}</TableCell>
                             <TableCell align="right">{repo.collaborators.totalCount}</TableCell>
-                            <TableCell align="right"><Button onClick={(e) => handleOpen(e,repo)}>View</Button></TableCell>
+                            <TableCell align="right"><Button onClick={(e) => handleOpen(e,repo)} className="view-button">View</Button></TableCell>
                         </TableRow>
                         )
                     })}
@@ -187,7 +260,7 @@ export default function Repositories(props) {
                         <div className="modal-div-following-2-child">
                             
                             <div className="repo-data">
-                                <Grid container>
+                                <Grid container> 
                                     <Grid item sm={2} className="repo-data-card">
                                         <Card ><h1 className="forkCountHd">Forks: <span className="forkCount">{currentRepo.forkCount}</span></h1></Card>
                                     </Grid>
@@ -208,7 +281,7 @@ export default function Repositories(props) {
                         </div>
 
                         <div className="modal-div-following-3-child" >
-                        <Card style={{padding:'20px'}}>
+                        <Card style={{padding:'50px'}}>
                         <h1 className="modal-issue-title">Create Issue</h1>
                         <form onSubmit={(e) => handleIssueSubmit(e)} className="form-issue">
                             <div className="form-div">
@@ -231,19 +304,59 @@ export default function Repositories(props) {
                                 }
                                 if(currentIssues.length > 0){
                                     return(
-                                         currentIssues.map(issue => {
-                                            return (
-                                            <Grid item sm={6}>
-                                            <div className="issues-div" style={{maxHeight: 500, overflow: 'auto'}}>
-                                                <h1 className="issue-title">{issue.title} 
-                                                <Button className={"issue-state-" + (issue.state == "OPEN" ? "open" : "closed")}>
-                                                {issue.state}
-                                                </Button></h1>
-                                                <hr></hr>
-                                            </div>
-                                            </Grid>
+                                    currentIssues.map(issue => {
+                                    return (
+                                    <Grid item sm={5} style={{padding:'20px',margin:'20px'}}>
+                                    <div className="issues-div" style={{maxHeight: 500, overflow: 'auto'}}>
+                                        <h1 className="issue-title">
+                                            {(() => {
+                                                if(isNameChange && currentIssueId == issue.id){
+                                                    return(
+                                                        <form onSubmit={(e) => handleIssueNameChange(e,issue.id)}>
+                                                            <TextField value={changedName} onChange={handleSetNameChange} placeholder="New Title" />
+                                                            <Button type="submit" >Change</Button>
+                                                        </form>
+                                                    )
+                                                }
+                                                else{
+                                                    return(
+                                                        <div>
+                                                        {issue.title} 
+                                                        <Button className={"issue-state-" + (issue.state == "OPEN" ? "open" : "closed")}>
+                                                        {issue.state}
+                                                        </Button>
+                                                        
+                                                        </div>
+                                                    )
+                                                }
+                                            })()}
+                                            
+                                        </h1>
+                                        
+                                        <hr></hr>
+                                        <div className="issue-details-div">
+
+                                        { issue.state=="OPEN" ? <Button onClick={(e) => handleCloseIssue(e,issue.id)} className="delete-Issue">Close Issue</Button> : <Button onClick={(e) => handleReOpenIssue(e,issue.id)} className="delete-Issue">ReOpen Issue</Button>}
+                                        <Button onClick={(e) => handleDeleteIssue(e,issue.id)} className="delete-Issue">Delete Issue</Button>
+                                        <Button onClick={(e) => handleSetNameTrue(e,issue.id)} className="delete-Issue">Change Name</Button>
+                                        <p style={{padding:'10px',color:'grey'}}>{issue.bodyText}</p>
+                                        </div>
+                                        {issue.comments.nodes.map(comment => {
+                                            return(
+                                                <Card className="comment-card">
+                                                    <h4 className="comment-body">
+                                                    {comment.bodyText} { username==comment.author.login ? 
+                                                    <Button style={{float:'right',color:'red'}} onClick={()=>handleCommentDelete(comment.id)}>Delete</Button> : ""}
+                                                    </h4>
+                                                    
+                                                    <p className="comment-author">By {comment.author.login}</p>
+                                                </Card>
                                             )
-                                    })
+                                        })}
+                                    </div>
+                                    </Grid>
+                                    )
+                            })  
                                     )
                                 }
                             })()}

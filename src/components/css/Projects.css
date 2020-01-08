@@ -1,3 +1,4 @@
+
 .ProjectCard{
     margin: 10px;
 }
@@ -29,6 +30,11 @@
     margin: 10px !important;
 }
 .project-home{
-    padding-top: 40px;
-    padding-bottom: 50px;
+    margin-top: 40px !important;
+    margin-bottom: 20px !important;
+    padding: 40px;
+}
+.project-detail-item{
+    margin: 10px;
+    color: grey;
 }

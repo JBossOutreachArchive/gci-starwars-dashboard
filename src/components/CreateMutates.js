@@ -151,7 +151,7 @@ export default function CreateMutates(props) {
         await client.mutate({
             mutation: gql`
             mutation{
-                createProject(input:{name:${tempName},ownerId:${tempId},repositoryIds:["MDEwOlJlcG9zaXRvcnkxNDcyNzQyMjE=","MDEwOlJlcG9zaXRvcnkxNDYxNTgxNTM="]}){
+                createProject(input:{name:${tempName},ownerId:${tempId},repositoryIds:${tempRepos}}){
                     project{
                         name
                     }

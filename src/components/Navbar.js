@@ -16,6 +16,11 @@ export default function Navbar() {
     const username = localStorage.getItem('username');
     const token = localStorage.getItem('token');
 
+    const handleLogout = () =>{
+      localStorage.removeItem('username')
+      localStorage.removeItem('token')
+
+    }
     return (
         <div className="main">
         <AppBar position="static" className="nav">
@@ -26,7 +31,7 @@ export default function Navbar() {
           <Typography variant="h4" className="title">
             GITHUB DASHBOARD
           </Typography>
-          <Button className="logout">Logout</Button>
+          <Button className="logout" onClick={handleLogout}><a href="/login" className="logout-link">Logout</a></Button>
           <Typography variant="h6" className="item">{username.toUpperCase()}</Typography>
         </Toolbar>
       </AppBar>

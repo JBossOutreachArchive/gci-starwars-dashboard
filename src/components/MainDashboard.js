@@ -12,6 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import swal from 'sweetalert';
 
 // CSS
 import './css/MainDashboard.css';
@@ -72,7 +73,7 @@ export default function MainDashboard(props) {
         id = '"' + id + '"';
         await client.mutate({
             mutation: followUser(id)
-            }).then(result => window.alert("You Followed: " + result.data.followUser.user.name))
+            }).then(result => swal({title:"You Followed: " + result.data.followUser.user.name,icon:'success'}))
     }
 
     async function handleUnfollow(event,id){
@@ -116,22 +117,18 @@ export default function MainDashboard(props) {
                     <Grid item sm={2} className="GridItem">
                         <img className="avatar" src={props.data.data.viewer.avatarUrl} />
                     </Grid> 
-                    <Grid item sm={4} className="GridItem textItem">
+                    <Grid item sm={6} className="GridItem textItem">
                         <h1 className="name">{props.data.data.viewer.name ? props.data.data.viewer.name.toUpperCase() : "No Name"}</h1>
                         <h3 style={{color:'grey'}} className="username">@{localStorage.getItem('username')}</h3>
                         <h2>Email: {props.data.data.viewer.email}</h2>
                         <h2>Location: {props.data.data.viewer.location}</h2>
                         <h2></h2>
                     </Grid>
-                    <Grid item sm={6} className="textItem">
+                    <Grid item sm={4} className="textItem">
                         <Grid container>
-                        <Grid item sm={3}>
+                        <Grid item sm={6}>
                         <h1><Button onClick={handleOpen} className="followers">Followers {props.data.data.viewer.followers.nodes.length}</Button></h1>
                         <h1><Button onClick={handleOpen2} className="followers">Following {props.data.data.viewer.following.nodes.length}</Button></h1>
-                        </Grid>
-                        <Grid item sm={7}>
-                        <h1>Repo Contributed: {props.data.data.viewer.repositoriesContributedTo.nodes.length}</h1>
-                        <h1>No of Pull Request: {props.data.data.viewer.pullRequests.nodes.length}</h1>
                         </Grid>
                         </Grid>
 

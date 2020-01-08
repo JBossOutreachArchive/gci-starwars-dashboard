@@ -7,13 +7,10 @@
     background-color: #00CBF0 !important;
 }
 .modal-div-following-2{
-    width: 50%;
-    padding: 40px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    background-color: white;
-    transform: translate(-50%, -50%);
+    background-color: #fafafa;
+    padding-top: 5%;
+    padding-left: 20%;
+    padding-right: 20%;
 }
 .appbar{
     text-align: center !important;
@@ -99,6 +96,10 @@
 .form-div{
     background-color: white;
 }
+.issue-details-div{
+    font-size:17px;
+    padding: 30px;
+}
 .issue-submit{
     width: 100%;
     color: #00CBF0 !important;
@@ -109,4 +110,27 @@
     background-color: #00CBF0 !important;
     color: white !important;
     cursor: pointer;
+}
+.comment-card{
+    margin: 20px;
+    padding: 10px;
+}
+.comment-body{
+    color: #00CBF0;
+}
+.comment-author{
+    color: grey;
+}
+
+.delete-Issue{
+    border: 1px solid #E5E5E5 !important;
+    margin: 5px !important;
+}
+.view-button{
+    border: 2px solid #00CBF0 !important;
+    color: #00CBF0 !important;
+}
+.view-button:hover{
+    background-color: #00CBF0 !important;
+    color: white !important ;
 }

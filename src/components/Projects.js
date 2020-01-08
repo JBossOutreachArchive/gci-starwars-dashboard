@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import ApolloClient from 'apollo-boost';
 import gql from 'graphql-tag';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import swal from 'sweetalert';
 
 import './css/Projects.css';
 
@@ -43,7 +44,7 @@ export default function Projects(props) {
                 }
             }
             `
-        }).then(result => console.log("Sucessfuly Deleted"))
+        }).then(result => swal({title:"Successfully Deleted",icon:"success"}))
     }
     const handleState = async (e,id,state) =>{
         let tempId = '"' + id + '"';
@@ -59,12 +60,12 @@ export default function Projects(props) {
                 }
             }
             `
-        }).then(result => window.alert(result.data.updateProject.project.name + " State: " + result.data.updateProject.project.state));
+        }).then(result => swal({title:result.data.updateProject.project.name + " State: " + result.data.updateProject.project.state,icon:"success"}));
         
     }
 
     return (
-        <div className="project-home">
+        <Card className="project-home">
             <Grid container>
             {
                 props.data.map(project => {
@@ -75,8 +76,8 @@ export default function Projects(props) {
                             <hr></hr>
 
                             <CardContent className="project-detail">
-                                <h3>Creator: {project.creator.login}</h3>
-                                <h3>State: {project.state}</h3>
+                                <h3 className="project-detail-item">Creator: {project.creator.login}</h3>
+                                <h3 className="project-detail-item">State: {project.state}</h3>
 
                                 <Grid container>
                                 <Grid item sm={5} className="btn-grid">
@@ -96,6 +97,6 @@ export default function Projects(props) {
                 )
                 })}
             </Grid>
-        </div>
+        </Card>
     )
 }

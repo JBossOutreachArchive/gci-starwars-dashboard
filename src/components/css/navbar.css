@@ -32,3 +32,10 @@
     background-color: #00CBF0 !important;
     color: white !important;
 }
+.logout-link{
+    color: #00CBF0;
+    text-decoration: none;
+}
+.logout-link:hover{
+    color: white !important;
+}
