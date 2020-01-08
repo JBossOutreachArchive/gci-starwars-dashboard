@@ -30,6 +30,9 @@ h1{
     padding: 0px;
     margin: 0px;
 }
+.input-following{
+    margin-top: 10px !important;
+}
 .followers{
     margin: 10px !important;
     font-size: 22px !important;

@@ -167,8 +167,8 @@ export default function MainDashboard(props) {
             <Modal open={openFollowing} onClose={handleClose2}>
                 <div className="modal-div-following container">
                     <Card className="modal-card-following" >
-                        <form>
-                            <TextField className="input-following" onChange={handleUsrChange} value={usernameFollow} id="outlined-basic" label="Username" variant="outlined"/>
+                        <form className="input-following">
+                            <TextField onChange={handleUsrChange} value={usernameFollow} id="outlined-basic" label="Username" variant="outlined"/>
                             <button type="submit" className="follow-submit" onClick={handleUsrClick}>Follow</button>
                         </form>
                         <List className="unfollow-list" style={{maxHeight: 500, overflow: 'auto'}}>
