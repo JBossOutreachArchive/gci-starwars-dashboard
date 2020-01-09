@@ -74,6 +74,9 @@ export default function Home() {
                     collaborators{
                     totalCount
                     }
+                    issues{
+                    totalCount
+                    }
                 }
                 }
                 repositoriesContributedTo(last: $number_of_repos){

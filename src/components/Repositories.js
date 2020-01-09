@@ -34,13 +34,18 @@ export default function Repositories(props) {
 
     const [currentRepo, setCurrentRepo] = useState();
     const [currentIssues, setCurrentIssue] = useState();
-    const [Open, setOpen] = useState(false);
+    const [Open, setOpen] = useState();
+    const [fakeState,setFakeState] = useState(false);
 
     const [name, setName] = useState("");
     const [body, setBody] = useState("");
     const [currentIssueId, setCurrentIssueId] = useState();
     const [changedName,setChangedName] = useState("");
     const [isNameChange, setNameChange] = useState(false);
+    const [issueCount,setIssueCount] = useState();
+
+    const [, updateState] = React.useState();
+    const forceUpdate = React.useCallback(() => updateState({}), []);
 
     const client = new ApolloClient({
         uri: 'https://api.github.com/graphql',
@@ -54,7 +59,6 @@ export default function Repositories(props) {
     })
 
     const handleOpen = async (e,repo) => {
-        e.preventDefault();
         let name = '"' + repo.name + '"';
         let usrname = '"' + username + '"';
         let issues = [];
@@ -87,6 +91,7 @@ export default function Repositories(props) {
         
         await setCurrentIssue(issues);
         await setCurrentRepo(repo);
+        setIssueCount(repo.issues.totalCount)
         setOpen(true);
     }
     const handleClose = () =>{
@@ -110,7 +115,7 @@ export default function Repositories(props) {
             }
             `
         }).then(result => swal({title:"Created Issue: " + result.data.createIssue.issue.title,text:"Reload Page",icon:"success"}))
-        
+        window.location.reload();
     }
     const handleName = (e) =>{
         setName(e.target.value)
@@ -240,6 +245,7 @@ export default function Repositories(props) {
                 fullScreen
                 open={Open}
                 onClose={handleClose}
+
             >
              {(() => {
                 if(currentRepo){
@@ -253,6 +259,7 @@ export default function Repositories(props) {
                           </IconButton>
                           <Typography variant="h4" className="repo-heading">
                             {currentRepo.name.toUpperCase()}
+                            
                           </Typography>
                         </Toolbar>
                       </AppBar>
@@ -294,7 +301,7 @@ export default function Repositories(props) {
                         <br></br>
                         <br></br>
                         <Card style={{padding:'20px'}}>
-                        <h1 className="modal-issue-title">Issues</h1>
+                        <h1 className="modal-issue-title">Issues({issueCount})</h1>
                             <Grid container>
                             {(() => {
                                 
@@ -308,6 +315,7 @@ export default function Repositories(props) {
                                     return (
                                     <Grid item sm={5} style={{padding:'20px',margin:'20px'}}>
                                     <div className="issues-div" style={{maxHeight: 500, overflow: 'auto'}}>
+
                                         <h1 className="issue-title">
                                             {(() => {
                                                 if(isNameChange && currentIssueId == issue.id){
