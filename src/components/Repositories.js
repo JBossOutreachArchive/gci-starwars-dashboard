@@ -115,7 +115,8 @@ export default function Repositories(props) {
             }
             `
         }).then(result => swal({title:"Created Issue: " + result.data.createIssue.issue.title,text:"Reload Page",icon:"success"}))
-        window.location.reload();
+        setOpen(false);
+        setTimeout(function() { handleOpen(e,currentRepo); }, 0);
     }
     const handleName = (e) =>{
         setName(e.target.value)
@@ -143,6 +144,8 @@ export default function Repositories(props) {
             }
             `
         }).then(result => swal({title:"Sucessfuly ReOpened Issue",text:"Reload Page",icon:"success"}))
+        setOpen(false);
+        setTimeout(function() { handleOpen(e,currentRepo); }, 0);
     }
 
     const handleCloseIssue = async (e,id) =>{
@@ -156,6 +159,8 @@ export default function Repositories(props) {
             }
             `
         }).then(result => swal({title:"Sucessfuly Closed Issue",text:"Reload Page",icon:"success"}))
+        setOpen(false);
+        setTimeout(function() { handleOpen(e,currentRepo); }, 0);
     }
     const handleDeleteIssue = async (e,id) =>{
         let tempId = '"' + id + '"';
@@ -168,6 +173,8 @@ export default function Repositories(props) {
             }
             `
         }).then(result => swal({title:"Sucessfuly Deleted Issue",text:"Reload Page",icon:"success"}));
+        setOpen(false);
+        setTimeout(function() { handleOpen(e,currentRepo); }, 0);
     }
 
     const handleIssueNameChange = async (e,id) =>{
@@ -187,6 +194,8 @@ export default function Repositories(props) {
             `
         }).then(result => swal({title:"Successfuly Changed the Name to " + title, text:"Reload Page",icon:"success"}))
         setNameChange(false);
+        setOpen(false);
+        setTimeout(function() { handleOpen(e,currentRepo); }, 0);
     }
     const handleCommentDelete = async (id) =>{
         let tempId = '"' + id + '"';
@@ -200,6 +209,8 @@ export default function Repositories(props) {
             }
             `
         }).then(result => swal({title:"Sucessfuly Deleted Comment",text:"Reload Page",icon:"success"}))
+        setOpen(false);
+        setTimeout(function() { handleOpen(currentRepo); }, 0);
     }
 
     // Reverse the Repo array 
