@@ -58,15 +58,10 @@ export default function Repositories(props) {
         }
     })
 
-    const updateIssues = async (e,repo) => {
-
-        let name = '"' + repo.name + '"';
-        let usrname = '"' + username + '"';
-        let issues = []
-        await client.query({
-            query: gql`
+    const getIssues= (name,username) =>{
+        const all =  gql`
             query($number: Int = 5){
-                repository(name:${name},owner:${usrname}){
+                repository(name:${name},owner:${username}){
                     issues(first: $number){
                         nodes{
                             id
@@ -86,7 +81,18 @@ export default function Repositories(props) {
                     }
                 }
             }
-            `
+            `;
+        return all;
+    }
+
+    const updateIssues = async (e,repo) => {
+
+        let name = '"' + repo.name + '"';
+        let usrname = '"' + username + '"';
+        let issues = []
+
+        await client.query({
+            query: getIssues(name,usrname)
         }).then(result => issues = result.data.repository.issues.nodes);
         
         await setCurrentIssue(issues);
@@ -98,29 +104,7 @@ export default function Repositories(props) {
         let issues = [];
 
         await client.query({
-            query: gql`
-            query($number: Int = 5){
-                repository(name:${name},owner:${usrname}){
-                    issues(first: $number){
-                        nodes{
-                            id
-                            title
-                            state
-                            bodyText
-                            comments(first: $number){
-                                nodes{
-                                    id
-                                    author{
-                                        login
-                                    }
-                                    bodyText
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            `
+            query: getIssues(name,usrname)
         }).then(result => issues = result.data.repository.issues.nodes);
         
         await setCurrentIssue(issues);
