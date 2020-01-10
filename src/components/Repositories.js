@@ -114,7 +114,7 @@ export default function Repositories(props) {
                 }
             }
             `
-        }).then(result => swal({title:"Created Issue: " + result.data.createIssue.issue.title,text:"Reload Page",icon:"success"}))
+        }).then(result => swal({title:"Created Issue: " + result.data.createIssue.issue.title,icon:"success"}))
         setOpen(false);
         setTimeout(function() { handleOpen(e,currentRepo); }, 0);
     }
@@ -143,7 +143,7 @@ export default function Repositories(props) {
                 }
             }
             `
-        }).then(result => swal({title:"Sucessfuly ReOpened Issue",text:"Reload Page",icon:"success"}))
+        }).then(result => swal({title:"Sucessfuly ReOpened Issue",icon:"success"}))
         setOpen(false);
         setTimeout(function() { handleOpen(e,currentRepo); }, 0);
     }
@@ -158,7 +158,7 @@ export default function Repositories(props) {
                 }
             }
             `
-        }).then(result => swal({title:"Sucessfuly Closed Issue",text:"Reload Page",icon:"success"}))
+        }).then(result => swal({title:"Sucessfuly Closed Issue",icon:"success"}))
         setOpen(false);
         setTimeout(function() { handleOpen(e,currentRepo); }, 0);
     }
@@ -172,7 +172,7 @@ export default function Repositories(props) {
                 }
             }
             `
-        }).then(result => swal({title:"Sucessfuly Deleted Issue",text:"Reload Page",icon:"success"}));
+        }).then(result => swal({title:"Sucessfuly Deleted Issue",icon:"success"}));
         setOpen(false);
         setTimeout(function() { handleOpen(e,currentRepo); }, 0);
     }
@@ -192,7 +192,7 @@ export default function Repositories(props) {
                 }
             }
             `
-        }).then(result => swal({title:"Successfuly Changed the Name to " + title, text:"Reload Page",icon:"success"}))
+        }).then(result => swal({title:"Successfuly Changed the Name to " + title,icon:"success"}))
         setNameChange(false);
         setOpen(false);
         setTimeout(function() { handleOpen(e,currentRepo); }, 0);
@@ -208,7 +208,7 @@ export default function Repositories(props) {
                 }
             }
             `
-        }).then(result => swal({title:"Sucessfuly Deleted Comment",text:"Reload Page",icon:"success"}))
+        }).then(result => swal({title:"Sucessfuly Deleted Comment",icon:"success"}))
         setOpen(false);
         setTimeout(function() { handleOpen(currentRepo); }, 0);
     }
