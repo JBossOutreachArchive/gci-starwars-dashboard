@@ -58,6 +58,40 @@ export default function Repositories(props) {
         }
     })
 
+    const updateIssues = async (e,repo) => {
+
+        let name = '"' + repo.name + '"';
+        let usrname = '"' + username + '"';
+        let issues = []
+        await client.query({
+            query: gql`
+            query($number: Int = 5){
+                repository(name:${name},owner:${usrname}){
+                    issues(first: $number){
+                        nodes{
+                            id
+                            title
+                            state
+                            bodyText
+                            comments(first: $number){
+                                nodes{
+                                    id
+                                    author{
+                                        login
+                                    }
+                                    bodyText
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            `
+        }).then(result => issues = result.data.repository.issues.nodes);
+        
+        await setCurrentIssue(issues);
+    }
+
     const handleOpen = async (e,repo) => {
         let name = '"' + repo.name + '"';
         let usrname = '"' + username + '"';
@@ -115,8 +149,7 @@ export default function Repositories(props) {
             }
             `
         }).then(result => swal({title:"Created Issue: " + result.data.createIssue.issue.title,icon:"success"}))
-        setOpen(false);
-        setTimeout(function() { handleOpen(e,currentRepo); }, 0);
+        updateIssues(e,currentRepo)
     }
     const handleName = (e) =>{
         setName(e.target.value)
@@ -144,8 +177,7 @@ export default function Repositories(props) {
             }
             `
         }).then(result => swal({title:"Sucessfuly ReOpened Issue",icon:"success"}))
-        setOpen(false);
-        setTimeout(function() { handleOpen(e,currentRepo); }, 0);
+        updateIssues(e,currentRepo)
     }
 
     const handleCloseIssue = async (e,id) =>{
@@ -159,8 +191,7 @@ export default function Repositories(props) {
             }
             `
         }).then(result => swal({title:"Sucessfuly Closed Issue",icon:"success"}))
-        setOpen(false);
-        setTimeout(function() { handleOpen(e,currentRepo); }, 0);
+        updateIssues(e,currentRepo)
     }
     const handleDeleteIssue = async (e,id) =>{
         let tempId = '"' + id + '"';
@@ -173,8 +204,7 @@ export default function Repositories(props) {
             }
             `
         }).then(result => swal({title:"Sucessfuly Deleted Issue",icon:"success"}));
-        setOpen(false);
-        setTimeout(function() { handleOpen(e,currentRepo); }, 0);
+        updateIssues(e,currentRepo)
     }
 
     const handleIssueNameChange = async (e,id) =>{
@@ -194,8 +224,7 @@ export default function Repositories(props) {
             `
         }).then(result => swal({title:"Successfuly Changed the Name to " + title,icon:"success"}))
         setNameChange(false);
-        setOpen(false);
-        setTimeout(function() { handleOpen(e,currentRepo); }, 0);
+        updateIssues(e,currentRepo)
     }
     const handleCommentDelete = async (id) =>{
         let tempId = '"' + id + '"';
@@ -209,8 +238,7 @@ export default function Repositories(props) {
             }
             `
         }).then(result => swal({title:"Sucessfuly Deleted Comment",icon:"success"}))
-        setOpen(false);
-        setTimeout(function() { handleOpen(currentRepo); }, 0);
+        updateIssues(currentRepo)
     }
 
     // Reverse the Repo array 
