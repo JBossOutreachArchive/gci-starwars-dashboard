@@ -1,0 +1,20 @@
+.card{
+    background:rgb(14, 16, 17)!important;
+}
+
+.table{
+    background-color:none!important;
+    background:none!important;
+}
+
+th{
+    color:#FFAB00!important;
+}
+
+.hide{
+    display:none;
+}
+
+.mm{
+    margin:1em!important;
+}
