@@ -9,8 +9,6 @@ import Peoples from './entities/Peoples'
 import Planets from './entities/Planets'
 import Species from './entities/Species'
 
-
-
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 
 import { Heading } from 'react-bulma-components';
@@ -22,7 +20,7 @@ import {
   Redirect
 } from "react-router-dom";
 
-import EntityNavigation from './EntityNavigation';
+import EntityNavigation from './components/EntityNavigation';
 
 const client = new ApolloClient({
   uri: 'https://swapi.graph.cool/'
@@ -68,9 +66,6 @@ function App() {
             <Route path="/planets">            
               <Redirect to="/planets/1" />
             </Route>
-            
-            
-            
           </Switch>
         </header>
       </Router>
