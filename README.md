@@ -23,4 +23,4 @@ Github dashboard to view/create/update/delete repositories,projects,issues. You 
 * Update Mutation: You can Update Project State, Issue State and Name, Unfollow a user,
 * Delete Mutation: You can Delete Project,Issue,Issue Comment(if made by you)
 
-### Video Demo - [Youtube](https://youtu.be/aU-buVOIixY)
+
