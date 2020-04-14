@@ -1,0 +1,41 @@
+.nav{
+    background-color: white !important;
+}
+.main{
+    flex-grow: 1;
+}
+.title{
+    text-align: center;
+    padding: 15px;
+    color: #00CBF0;
+    flex-grow: 1;
+}
+.item{
+    font-size: 30px !important;
+    color: #00CBF0 !important;
+
+}
+.item:hover{
+    cursor: text;
+}
+.logo{
+    width: 60px;
+    height: 60px;
+}
+.logout{
+    margin-right: 20px !important;
+    background-color: white !important;
+    color: #00CBF0 !important;
+    border: 2px solid #00CBF0 !important;
+}
+.logout:hover{
+    background-color: #00CBF0 !important;
+    color: white !important;
+}
+.logout-link{
+    color: #00CBF0;
+    text-decoration: none;
+}
+.logout-link:hover{
+    color: white !important;
+}

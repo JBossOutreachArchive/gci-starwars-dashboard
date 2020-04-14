@@ -1,0 +1,53 @@
+.home{
+    height: 100%;
+    background-color: #00CBF0;
+}
+.heading{
+    color: grey;
+    padding:20px;
+}
+
+.Login{
+    box-shadow: 2px  4px 10px;
+    background-color: white;
+    border-radius: 5px;
+    background-color: white;
+    padding:20px;
+}
+.loginCard{
+    background-color: white;
+}
+input{
+    background-color: white;
+    font-weight: bold;
+    font-size:28px;
+    color: grey;
+    padding:15px;
+    margin:20px;
+    border: 2px solid #00CBF0;
+}
+.submit{
+    margin: 20px;
+    width: 90%;
+    font-size: 28px;
+    background-color: white;
+    color: #00CBF0;
+    margin:20px;
+    padding: 15px;
+    border-radius: 12px;
+    border: 2px solid #00CBF0;
+}
+.submit:hover{
+    cursor:pointer;
+    background-color: #00CBF0;
+    color: white;
+}
+.token{
+    margin: 20px;
+    color: grey;
+}
+.tooltip{
+    color: white;
+    font-weight: none;
+    font-size:14px;
+}
